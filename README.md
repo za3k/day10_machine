@@ -33,7 +33,7 @@ The machine has six registers. Registers are case-sensitive.
 
 - **A**, **B**, and **C** are WORD-sized registers
 - **d**, **e**, and **f** are trit-sized registers
-- **I** is the instruction pointer, which can hold any size up to the size of the program. The instruction pointer is automatically incremented. If it goes off the end of the program, the machine crashes.
+- **I** is the instruction pointer, which can hold any size up to the size of the program. The instruction pointer is automatically incremented. The program halts if it auto-increments past the end.
 
 ## Memory
 

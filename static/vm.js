@@ -232,6 +232,10 @@
             if (this.halted) return;
 
             this._clearHighlights();
+            if (this.I >= this.instructions.length) {
+                this.stop();
+                return;
+            }
             // Read instruction
             const instruction = this.instructions[this.I];
             //console.log(this.I,instruction);
@@ -259,7 +263,7 @@
         },
         loadProgram() {
             this.program = this.html.program.text();
-            this.html.program.attr("disabled", "true");
+            this.html.program.attr("disabled", "disabled");
             this.input = this.html.input.text();
             const r = parseProgram(this.program);
             console.log(r)
@@ -313,7 +317,7 @@
             this.running = false;
             this.halted = true;
             this.flush();
-            this.html.program.attr("disabled", "false");
+            this.html.program.removeAttr("disabled");
             this.setState("Stopped");
             this.visual = true;
         },

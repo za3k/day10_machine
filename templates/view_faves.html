@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}{{ user.id }} - favorites{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <ul>
+    {% for user_id, filename in user.favorite_files %}
+        <li><a href="{{ url_for("edit", user_id=user_id, filename=filename) }}">{{ filename }}</a></li>
+    {% endfor %}
+    {% for hash in user.favorite_anon_files %}
+        <li><a href="{{ url_for("view", program_hash=hash) }}">{{ hash }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+

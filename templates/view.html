@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% from 'common.html' import VM %}
+
+{% block header %}
+    <h3>{% block title %}untitled-{{ program_hash[:8] }}{% endblock %}</h3>
+    View a <a href="{{ url_for("about") }}">machine manual</a>.
+{% endblock %}
+
+{% block content %}
+    {{ VM(program, current_user, None) }}
+    {% if current_user.is_authenticated %}
+    <form action="{{ url_for("fave_anon", program_hash=program_hash) }}">
+        <input type="submit" name="submit" value="Favorite"/>
+    </form>
+    {% endif %}
+{% endblock %}

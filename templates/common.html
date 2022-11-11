@@ -1,0 +1,48 @@
+
+
+{% macro VM(program, current_user, filename) -%}
+    <noscript>This VM requires javascript.</noscript>
+    <script src="{{ url_for('static', filename='vm.js') }}"></script>
+
+    <form action="{{ url_for('submit') }}" method="post">
+    <div class="vm flex-horiz">
+        <div class="vm-left flex-vert">
+            <table id="memory" class="memory">
+                {% for row in range(27) %}<tr>{% for col in range(27) %}<td class="trit zero"></td>{% endfor %}</tr>
+                {% endfor %}
+            </table>
+            <div class="debugger">
+                <div class="registers flex-horiz">
+                    <div class="register-cont A"><span class="register-label">A</span><div class="register word">0</div></div>
+                    <div class="register-cont B"><span class="register-label">B</span><div class="register word">0</div></div>
+                    <div class="register-cont C"><span class="register-label">C</span><div class="register word">0</div></div>
+                    <div class="register-cont d"><span class="register-label">d</span><div class="register trit"></div></div>
+                    <div class="register-cont e"><span class="register-label">e</span><div class="register trit"></div></div>
+                    <div class="register-cont f"><span class="register-label">f</span><div class="register trit"></div></div>
+                    <div class="register-cont I"><span class="register-label">I</span><div class="register">0</div></div>
+                </div>
+                <div class="instruction">Reset</div>
+                <div class="status">Stopped</div>
+                <div class="actions">
+                    <input type="button" class="step" value="Step"/>
+                    <input type="button" class="run" value="Run"/>
+                    <input type="button" class="stop" value="Stop"/>
+                    <input type="button" class="pause" value="Pause"/>
+                </div>
+                <div class="io">
+                    <input type="text" class="input" value="" placeholder="input"/>
+                    <input type="text" class="output" value="" placeholder="output" disabled="true"/>
+                </div>
+                <div class="save">
+                    {% if current_user.is_authenticated %}
+                    <input type="text" name="filename" value="{{ filename or "" }}" placeholder="filename"/>
+                    {% endif %}
+                    <input type="submit" name="submit" value="Save"/>
+                </div>
+            </div>
+        </div>
+        <textarea class="program" name="program">{{ program }}</textarea>
+    </form>
+    <div class="error"></div>
+{%- endmacro -%}
+

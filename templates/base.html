@@ -1,0 +1,44 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - {{ project_name }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}">
+<script src="{{ url_for('static', filename='js/jquery-3.6.1.js') }}"></script>
+
+<script>window.ajaxPrefix="{{ subdir }}"; window.loggedIn = {{ 0+current_user.is_authenticated }};</script>
+<div class="container">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+    <div class="navbar-brand navbar-brand-link"><a href="{{ url_for('index') }}">{{ project_name }}</a></div>
+    <ul class="nav navbar-nav">
+        <li><a href="{{ url_for('about') }}">About</a>
+        <li><a href="{{ url_for('index') }}">New</a>
+        {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('view_user', user_id=current_user.id) }}">Edit</a>
+        <li><a href="{{ url_for('view_faves', user_id=current_user.id) }}">Favorites</a>
+        {% endif %}
+    </ul>
+    {% if login %}
+        <ul class="nav navbar-nav navbar-right">
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('logout') }}">Log Out ({{ current_user.id }})</a>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Log In / Register</a>
+            {% endif %}
+        </ul>
+    {% endif %}
+    </div>
+</nav>
+<section class="content">
+    <header>
+        {% block header %}{% endblock %}
+    </header>
+    {% block content %}{% endblock %}
+</section>
+<footer class="footer bg-light">
+    <ul>
+        <li>{{ project_name }} is part of <a href="https://za3k.com/hackaday">Hack-A-Day</a>, a challenge to code one new project a day in November.</li>
+        <li>Source code is available on <a href="{{ source_url }}">github</a></li>
+    </ul>
+</div>
+</div>

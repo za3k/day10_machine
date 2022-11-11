@@ -1,0 +1,4 @@
+flask
+flask-login
+markupsafe==2.0.1
+sqlitedict

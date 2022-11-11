@@ -1,0 +1,108 @@
+/* -- This specific Hack-A-Day project -- */
+
+.trit {
+    width: 10px;
+    height: 10px;
+    border: 0.5px solid black;
+}
+
+.trit.zero {
+    background-color: grey;
+}
+.trit.positive {
+    background-color: green;
+}
+.trit.negative {
+    background-color: red;
+}
+
+.vm {
+    width: fit-content;
+}
+
+.program {
+    min-width: 100px;
+    min-height: 300px;
+    margin-left: 5px;
+}
+
+.flex-horiz {
+    display: flex;
+    flex-direction: row;
+}
+
+.vm-left {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.registers > .register-cont {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.register-cont {
+    border: 8px solid white;
+}
+.register-cont.highlight-output {
+    border: 8px solid green;
+}
+.register-cont.highlight-input {
+    border: 8px solid blue;
+}
+
+.register-label {
+    font-weight: bold;
+}
+.register-label::after {
+    content: ":";
+}
+.register {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.error {
+    color: red;
+}
+
+.memory .highlight-output {
+    animation: blinkingBackground-output 0.5s infinite;
+}
+.memory .highlight-input {
+    animation: blinkingBackground-input 0.5s infinite;
+}
+
+@keyframes blinkingBackground-output {
+    0% { background-color: white; }
+    10% { }
+    90% { }
+    0% { background-color: white; }
+}
+@keyframes blinkingBackground-input {
+    0% { background-color: blue; }
+    10% { }
+    90% { }
+    0% { background-color: blue; }
+}
+
+/* -- All Hack-A-Day projects -- */
+.about {
+    white-space: pre-wrap;
+}
+.footer {
+    background-color: rgba(0,0,0,0.2);
+    margin-top: 20px;
+}
+.footer ul {
+    list-style: none;
+    padding-left: 5px;
+}
+
+.navbar-brand-link a {
+    color: #777;
+}
+.navbar-brand-link a:hover {
+    color: #000;
+    text-decoration: none;
+}

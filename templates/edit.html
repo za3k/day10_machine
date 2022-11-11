@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% from 'common.html' import VM %}
+
+{% block header %}
+    <h1>{% block title %}{{ user_id }} - {{ filename }}{% endblock %}</h1>
+    View a <a href="{{ url_for("about") }}">machine manual</a>.
+{% endblock %}
+
+{% block content %}
+    {{ VM(program, current_user, filename) }}
+    {% if current_user.is_authenticated %}
+    <form action="{{ url_for("fave", user_id=user_id, filename=filename) }}">
+        <input type="submit" name="submit" value="Favorite"/>
+    </form>
+    {% endif %}
+{% endblock %}

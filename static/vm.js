@@ -197,6 +197,11 @@
             ["step", "run", "stop", "pause"].forEach(x => {
                 this.html[x].on("click", this[x].bind(this));
             });
+            for (let i=WORD_MIN; i<=WORD_MAX; i++) this._memoryHtml(i).data("address", i);
+            this.html.memory.find("td").on("click", (event) => {
+                const address = $(event.target).data("address");
+                this.memoryWrite(address, 0);
+            })
             this.tick();
             this.setState("Reset");
         },

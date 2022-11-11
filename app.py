@@ -43,7 +43,7 @@ def index():
 # "Save" button saves the current version of a program
 @app.route("/edit/<user_id>/<filename>")
 def edit(user_id, filename):
-    if user_id != current_user.id:
+    if current_user.is_authenticated and user_id != current_user.id:
         program_hash = files[file_key(user_id, filename)]
         flask.redirect(url_for("view", program_hash=program_hash))
     if request.method == "GET":

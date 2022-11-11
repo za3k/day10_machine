@@ -13,6 +13,7 @@ load_info({
     "subdir": "/hackaday/machine",
     "description": "a programmable virtual machine",
     "login": True,
+    "manual": "https://github.com/za3k/day10_machine/blob/master/README.md",
 })
 
 # -- Routes specific to this Hack-A-Day project --

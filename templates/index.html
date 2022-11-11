@@ -4,7 +4,7 @@
 {% block header %}
     <h1>{% block title %}{{ project_name }}{% endblock %}</h1>
     {{ project_name }} is {{ description }}. See some <a href="{{ url_for("view_faves", user_id="zachary") }}">example programs</a>.
-    View a <a href="{{ url_for("about") }}">machine manual</a>.
+    View a <a href="{{ manual }}">machine manual</a>.
 
 {% endblock %}
 

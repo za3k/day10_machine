@@ -43,7 +43,7 @@
         jz(t1, l1) { if (t1==0) return ops.jump(l1); else return [vm.I]; },
         jp(t1, l1) { if (t1>0) return ops.jump(l1); else return [vm.I]; },
         jn(t1, l1) { if (t1<0) return ops.jump(l1); else return [vm.I]; },
-        random() { return Math.floor(Math.random()*3)-1; },
+        random() { return [Math.floor(Math.random()*3)-1]; },
         halt() { vm.stop(); return []; },
         flush() { vm.flush(); return []; },
         IN() { return vm.input(); },

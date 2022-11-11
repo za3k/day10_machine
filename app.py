@@ -94,7 +94,6 @@ def fave_anon(program_hash):
     return redirect(url_for("view", program_hash=program_hash))
 
 @app.route("/faves/<user_id>")
-@flask_login.login_required
 def view_faves(user_id):
     return render_template("view_faves.html", user=get_user(user_id))
 

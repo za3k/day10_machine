@@ -1,11 +1,6 @@
     const WORD_MAX = 364;
     const WORD_MIN = -364;
     const MAX_POWER = 729;
-    function clamp(w1) {
-        if (w1 < WORD_MIN) return WORD_MIN;
-        else if (w1 > WORD_MAX) return WORD_MAX;
-        else return w1;
-    }
     const ops = {
         RIGHT(w1) {
             const r = w1%3;
@@ -26,9 +21,9 @@
         },
         ADD(w1, w2) {
             const s = w1+w2;
-            if (s > WORD_MAX) return [1, clamp(s)];
-            else if (s < WORD_MIN) return [-1, clamp(s)];
-            else return [0, clamp(s)];
+            if (s > WORD_MAX) return [1, s-MAX_POWER];
+            else if (s < WORD_MIN) return [-1, s+MAX_POWER];
+            else return [0, s];
         },
         add(t1, t2) {
             const s = t1 + t2;

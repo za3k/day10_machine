@@ -10,6 +10,8 @@ Demo available at [here](https://tilde.za3k.com/hackaday/machine).
 
 Source available on [github](https://github.com/za3k/day10_machine).
 
+Note! There is a bug where you need to save before running a program.
+
 Good luck! I don't accept bug reports, but I do accept pull requests.
 
 ## Signed Trinary

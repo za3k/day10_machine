@@ -1,6 +1,6 @@
     const WORD_MAX = 364;
     const WORD_MIN = -364;
-    const MEMORY_SIZE = WORD_MAX;
+    const MAX_POWER = 729;
     function clamp(w1) {
         if (w1 < WORD_MIN) return WORD_MIN;
         else if (w1 > WORD_MAX) return WORD_MAX;
@@ -13,11 +13,16 @@
             return [r];
         },
         RSHIFT(w1) { return Math.trunc(w1/3); },
-        LSHIFT(w1) { return [clamp(w1*3)]; },
+        LSHIFT(w1) { 
+            const r = w1*3;
+            if (r > WORD_MAX) return [r-MAX_POWER];
+            else if (r < WORD_MIN) return [r+MAX_POWER];
+            else return [r];
+        },
         CMP(w1, w2) {
-            if (w1 < w2) return -1;
-            else if (w1 == w2) return 0;
-            else return 1;
+            if (w1 < w2) return [-1];
+            else if (w1 == w2) return [0];
+            else return [1];
         },
         ADD(w1, w2) {
             const s = w1+w2;
@@ -35,8 +40,8 @@
         },
         MUL(w1, t2) { return [w1*t2]; },
         mul(t1, t2) { return [t1*t2]; },
-        MOV(w1) { return w1; },
-        mov(t1) { return t1; },
+        MOV(w1) { return [w1]; },
+        mov(t1) { return [t1]; },
         store(t1, w2) { vm.memoryWrite(w2, t1); return []; },
         load(w1) { return [vm.memoryRead(w1)]; },
         jump(l1) { return [l1]; },
@@ -237,10 +242,8 @@
                 return;
             }
             // Read instruction
-            const instruction = this.instructions[this.I];
-            //console.log(this.I,instruction);
             // Advance instruction pointer
-            this.I = (this.I + 1) % MEMORY_SIZE;
+            const instruction = this.instructions[this.I++];
             // Update instruction display if requested
             if (this.visual) {
                 this.html.instruction.text(instruction.name);

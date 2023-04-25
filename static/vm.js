@@ -119,6 +119,7 @@
             // Remove any comment and strip whitespace
             line = line.split("#")[0].trim()
             if (line == "") continue; // Ignore blank lines and comments
+            i++;
 
             // Mark any label
             const labelMatch = line.match(/^([a-zA-Z]+) *: */);
@@ -126,6 +127,7 @@
                 labels[labelMatch[1]] = i;
                 line = line.substr(labelMatch[0].length);
             }
+            if (line == "") continue;
             // Parse the rest
             let inputs = [];
             let outputs = [];
@@ -133,7 +135,7 @@
             let phase = 0;
             const parts = line.split(/\s/);
             error = (m) => {
-                const message = `${m} | on line ${i}: ${lines[j]}`;
+                const message = `${m} | on line ${i-1}: ${lines[j]}`;
                 vm.html.error.text(message);
                 throw message;
             }
@@ -170,15 +172,14 @@
                 parsedOutputs.push(p);
             }
 
-            instructions[i] = {
+            instructions[i-1] = {
                 inputs: parsedInputs,
-                line: i,
+                line: i-1,
                 name: iname,
                 outputs: parsedOutputs,
                 op,
                 original: lines[j],
             };
-            i++;
         }
 
         return {
@@ -231,7 +232,7 @@
         doStep() {
             if (this.halted) return;
 
-            this._clearHighlights();
+            if (this.visual) this._clearHighlights();
             if (this.I >= this.instructions.length) {
                 this.stop();
                 return;
